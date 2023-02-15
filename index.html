@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pizza Order Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      #pizza-order {
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+      }
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 5px;
+        text-align: left;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pizza-order">
+      <h2>Pizza Order Form</h2>
+      <form>
+        <div>
+          <label for="full-name">Full Name:</label><br>
+          <input type="text" id="full-name" name="full-name">
+        </div><br><br>
+        <div>
+          <label>Menu:</label><br>
+          <input type="radio" id="Neapolitan Pizza" name="menu" value="Neapolitan Pizza">
+          <label for="Neapolitan Pizza">Neapolitan Pizza</label><br>
+          <input type="radio" id="Chicago Pizza" name="menu" value="Chicago Pizza">
+          <label for="Chicago Pizza">Chicago Pizza</label><br>
+          <input type="radio" id="New York Style Pizza" name="menu" value="New York Style Pizza">
+          <label for="New York Style Pizza">New York Style Pizza</label><br><br>
+        </div>
+        <div>
+          <label for="toppings">Toppings:</label><br>
+          <input type="checkbox" id="pepperoni-topping" name="topping" value="Pepperoni">
+          <label for="pepperoni-topping">Pepperoni</label><br>
+          <input type="checkbox" id="mushroom-topping" name="topping" value="Mushrooms">
+          <label for="mushroom-topping">Mushrooms</label><br>
+          <input type="checkbox" id="onion-topping" name="topping" value="Onions">
+          <label for="onion-topping">Onions</label><br><br>
+        </div>
+        <div>
+          <label for="delivery-date">Delivery Date:</label><br>
+          <input type="date" id="delivery-date" name="delivery-date">
+        </div><br><br>
+        <div>
+          <button type="button" id="add-order">Add Order</button>
+        </div><br><br>
+      </form>
+      <table id="summary-table">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Menu</th>
+            <th>Toppings</th>
+            <th>Delivery Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    </div>
+    <script>
+        $(document).ready(function() {
+          $("#add-order").click(function() {
+            // Get form values
+            var fullName = $("#full-name").val();
+            var menu = $('input[name="menu"]:checked').val();
+            var toppings = $("input[name='topping']:checked")
+              .map(function() {
+                return this.value;
+              })
+              .get()
+              .join(", ");
+            var deliveryDate = $("#delivery-date").val();
+      
+            // Append values to summary table
+            var $row = $("<tr>");
+            $("<td>").html(fullName).appendTo($row);
+            $("<td>").html(menu).appendTo($row);
+            $("<td>").html(toppings).appendTo($row);
+            $("<td>").html(deliveryDate).appendTo($row);
+            $row.appendTo($("#summary-table tbody"));
+      
+            // Reset form
+            $("form")[0].reset();
+          });
+        });
+      </script>
+    </body>
+</html>
+    
